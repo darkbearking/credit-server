@@ -1,0 +1,9 @@
+spring:
+  messages:
+    encoding: UTF-8
+  application:
+    name: credit-server
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss

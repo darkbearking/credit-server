@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!-- mvn mybatis-generator:generate -->
+    <!--<properties resource="conf/config.properties"/>-->
+    
+    <!-- 数据库驱动包位置 -->
+    <classPathEntry location="${project.generatordir}/src/main/resources/generator/mysql-connector-java-5.1.45.jar" />
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <!-- TKmybatis配置 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.zjzy.credit.server.base.BaseMapper"/>
+        </plugin>
+        <!--生成的java对象模型自动添加toString()方法-->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <!--生成的java对象模型自动添加hashCode()和Equals()方法-->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- 数据库链接URL、用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://10.104.130.50:3306/dummy?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull" userId="root" password="123456" />
+        <!-- 生成模型的包名和位置 -->
+        <javaModelGenerator targetPackage="com.zjzy.credit.server.model" targetProject="${project.generatordir}/src/main/java" />
+        <!-- 生成的映射文件包名和位置 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="${project.generatordir}/src/main/resources" />
+        <!-- 生成service的包名和位置 -->
+        <javaClientGenerator targetPackage="com.zjzy.credit.server.dao" targetProject="${project.generatordir}/src/main/java" type="XMLMAPPER" />
+        <!-- 要生成的那些表 -->
+        <table tableName="t_dummy" domainObjectName="Dummy" >
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

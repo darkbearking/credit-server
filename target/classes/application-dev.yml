@@ -1,0 +1,62 @@
+server:
+  port: 9080
+  tomcat:
+    uri-encoding: UTF-8
+  servlet-path: /credit-server/
+management: # spring-boot-starter-acturator 设置监控端口 监控端口和业务端口分开
+  port: 9001
+  security:
+    enabled: false
+spring:
+  mvc:
+    static-path-pattern: /credit-server/**
+  resources:
+    static-locations: classpath:/static
+  messages:
+    encoding: UTF-8
+  application:
+    name: credit-server
+  profiles:
+    active: dev
+  datasource:
+    filepath: classpath:datasource-application.properties
+
+mybatis:
+    type-aliases-package: com.zjzy.credit.server.model
+    mapper-locations: classpath:mapper/*.xml
+    configuration:
+      map-underscore-to-camel-case: true
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+# 通用 Mapper 配置
+mapper:
+  mappers: com.zjzy.credit.server.base.BaseMapper
+  not-empty: false
+  identity: MYSQL
+
+# eureka可以先不用，等搭建eureka服务后再启用
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://user:password123@127.0.0.1:8083/eureka/
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+#    lease-renewal-interval-in-seconds: 30
+#    status-page-url-path: http://${spring.cloud.client.ipAddress}:${server.port}/${spring.application.name}/swagger-ui.html
+#    lease-expiration-duration-in-seconds: 90
+#    metadata-map:
+#      management.port: 9001
+logging:
+  level:
+     com.zjzy.credit.server.dao : debug
+
+# 当前项目专属配置信息
+credit:
+    env: dev
+    jwt:
+        secret: zjzy-base
